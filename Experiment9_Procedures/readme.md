@@ -60,27 +60,30 @@ Key Differences:
 - Use `DBMS_OUTPUT.PUT_LINE` to display the result.
 - Call the procedure with a number as input.
 
-**Expected Output:**  
-Square of 6 is 36
-
+## Program:
 ```
-CREATE OR REPLACE PROCEDURE find_square(p_number IN NUMBER) IS
-    v_square NUMBER;
+sql
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE find_square (num IN NUMBER) IS
+    sq NUMBER;
 BEGIN
-    v_square := p_number * p_number;
-    DBMS_OUTPUT.PUT_LINE('Square of ' || p_number || ' is ' || v_square);
+    sq := num * num;
+    DBMS_OUTPUT.PUT_LINE('Square of ' || num || ' is ' || sq);
 END;
 /
-SET SERVEROUTPUT ON;
 
 BEGIN
     find_square(6);
 END;
 /
 ```
-![image](https://github.com/user-attachments/assets/d6436d5d-b540-43d7-a396-2a8debfbb20a)
+**Expected Output:**  
+Square of 6 is 36
 
 ---
+<img width="683" height="182" alt="444390346-b3cf8c94-fe63-47db-b227-c0b8db64d7ea" src="https://github.com/user-attachments/assets/7389347e-3722-431e-9e20-e730487a65f6" />
+
 
 ## 2. Write a PL/SQL Function to Return the Factorial of a Number
 
@@ -91,42 +94,37 @@ END;
 - Return the result using the `RETURN` statement.
 - Call the function using a `SELECT` statement or in an anonymous block.
 
-**Expected Output:**  
-Factorial of 5 is 120
+## Program:
 ```
+sql
 SET SERVEROUTPUT ON;
 
-
-CREATE OR REPLACE FUNCTION get_factorial(p_number IN NUMBER)
-RETURN NUMBER
-IS
-   v_result NUMBER := 1;
+CREATE OR REPLACE FUNCTION get_factorial (num IN NUMBER) RETURN NUMBER IS
+    fact NUMBER := 1;
 BEGIN
-   IF p_number < 0 THEN
-      RETURN NULL;  
-   END IF;
-
-   FOR i IN 1..p_number LOOP
-      v_result := v_result * i;
-   END LOOP;
-
-   RETURN v_result;
+    FOR i IN 1..num LOOP
+        fact := fact * i;
+    END LOOP;
+    RETURN fact;
 END;
 /
 
 DECLARE
-   v_input NUMBER := 5;
-   v_output NUMBER;
+    result NUMBER;
 BEGIN
-   v_output := get_factorial(v_input);
-   DBMS_OUTPUT.PUT_LINE('Factorial of ' || v_input || ' is ' || v_output);
+    result := get_factorial(5);
+    DBMS_OUTPUT.PUT_LINE('Factorial of 5 is ' || result);
 END;
 /
 ```
 
-![image](https://github.com/user-attachments/assets/1319e42f-c31c-49dd-8c20-1bb349322a54)
+**Expected Output:**  
+Factorial of 5 is 120
 
 ---
+
+<img width="702" height="194" alt="444390437-a0db2454-65ff-4270-946d-e0826e5c3d06" src="https://github.com/user-attachments/assets/27d16f5b-2cc8-4b46-9e2d-679a2b7aee87" />
+
 
 ## 3. Write a PL/SQL Procedure to Check Whether a Number is Even or Odd
 
@@ -136,33 +134,38 @@ END;
 - Use the `MOD` function to check if the number is divisible by 2.
 - Display whether it is Even or Odd using `DBMS_OUTPUT.PUT_LINE`.
 
+## Program:
+```
+*Program:*
+sql
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE check_even_odd (num IN NUMBER) IS
+BEGIN
+    IF MOD(num, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(num || ' is Even');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(num || ' is Odd');
+    END IF;
+END;
+/
+
+-- Calling the procedure
+BEGIN
+    check_even_odd(12);
+END;
+/
+
+
+```
+
 **Expected Output:**  
 12 is Even
 
-```
-SET SERVEROUTPUT ON;
-
-
-CREATE OR REPLACE PROCEDURE check_even_odd(p_number IN NUMBER) IS
-BEGIN
-  
-   IF MOD(p_number, 2) = 0 THEN
-      DBMS_OUTPUT.PUT_LINE(p_number || ' is Even');
-   ELSE
-      DBMS_OUTPUT.PUT_LINE(p_number || ' is Odd');
-   END IF;
-END;
-/
-
-BEGIN
-   check_even_odd(12);  
-END;
-/
-```
-
-![image](https://github.com/user-attachments/assets/1275528f-e95b-4523-8f3c-90f065a73b94)
-
 ---
+
+<img width="684" height="190" alt="444390627-eb0b9436-1e78-4625-9320-9f125cc0aede" src="https://github.com/user-attachments/assets/2bee2c29-f85b-4698-9f7e-85ebbeb4072a" />
+
 
 ## 4. Write a PL/SQL Function to Return the Reverse of a Number
 
@@ -173,39 +176,32 @@ END;
 - Return the reversed number.
 - Call the function and display the output.
 
-**Expected Output:**  
-Reversed number of 1234 is 4321
+## Program:
+```<img width="687" height="191" alt="444391018-89d0ded7-a2f9-467c-b0ef-f20971a33d79" src="https://github.com/user-attachments/assets/a4bb0bb6-54c0-4a22-94d7-69c18dc97077" />
+<img width="687" height="191" alt="444391018-89d0ded7-a2f9-467c-b0ef-f20971a33d79" src="https://github.com/user-attachments/assets/5c0d988a-c817-4e91-8465-aacfd88736f2" />
 
-```
-CREATE OR REPLACE FUNCTION reverse_number(p_number IN NUMBER)
-RETURN NUMBER IS
-    v_number     NUMBER := p_number;
-    v_reversed   NUMBER := 0;
-    v_digit      NUMBER;
-BEGIN
-    WHILE v_number > 0 LOOP
-        v_digit := MOD(v_number, 10);
-        v_reversed := (v_reversed * 10) + v_digit;
-        v_number := TRUNC(v_number / 10);
-    END LOOP;
-    RETURN v_reversed;
-END;
-/
+sql
 SET SERVEROUTPUT ON;
 
-DECLARE
-    v_input    NUMBER := 1234;
-    v_result   NUMBER;
+CREATE OR REPLACE FUNCTION reverse_number (num IN NUMBER) RETURN NUMBER IS
+    rev_num NUMBER := 0;
+    temp_num NUMBER := num;
 BEGIN
-    v_result := reverse_number(v_input);
-    DBMS_OUTPUT.PUT_LINE('Reversed number of ' || v_input || ' is ' || v_result);
+    WHILE temp_num > 0 LOOP
+        rev_num := rev_num * 10 + MOD(temp_num, 10);
+        temp_num := FLOOR(temp_num / 10);
+    END LOOP;
+    RETURN rev_num;
 END;
 /
 ```
-
-![image](https://github.com/user-attachments/assets/b08ddc4c-962a-4af3-b600-55a98927cc9a)
-
+**Expected Output:**  
+Reversed number of 1234 is 4321
 ---
+
+
+<img width="687" height="191" alt="444391018-89d0ded7-a2f9-467c-b0ef-f20971a33d79" src="https://github.com/user-attachments/assets/7943f44d-4480-4956-9ec3-aa0a05b08d44" />
+
 
 ## 5. Write a PL/SQL Procedure to Display the Multiplication Table of a Number
 
@@ -215,6 +211,28 @@ END;
 - Use a loop from 1 to 10 to multiply the input number.
 - Display the multiplication results using `DBMS_OUTPUT.PUT_LINE`.
 
+## Program:
+```
+sql
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE print_table (num IN NUMBER) IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || num || ':');
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(num || ' x ' || i || ' = ' || (num * i));
+    END LOOP;
+END;
+/
+
+-- Calling the procedure
+BEGIN
+    print_table(5);
+END;
+/
+
+
+```
 **Expected Output:**  
 Multiplication table of 5:  
 5 x 1 = 5  
@@ -223,24 +241,8 @@ Multiplication table of 5:
 ...  
 5 x 10 = 50
 
-```
-CREATE OR REPLACE PROCEDURE print_table(p_number IN NUMBER) IS
-BEGIN
-    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || p_number || ':');
-    FOR i IN 1..10 LOOP
-        DBMS_OUTPUT.PUT_LINE(p_number || ' x ' || i || ' = ' || (p_number * i));
-    END LOOP;
-END;
-/
-SET SERVEROUTPUT ON;
+<img width="695" height="357" alt="444391446-12625873-6b80-4936-8276-50f607cf3f82" src="https://github.com/user-attachments/assets/da1d9685-b81a-4fe1-ab50-065ba922dcf6" />
 
-BEGIN
-    print_table(5);
-END;
-/
-```
-
-![image](https://github.com/user-attachments/assets/0ef9eca5-64dc-4cc4-a91b-218d48a989dc)
 
 ## RESULT
 Thus, the PL/SQL programs using procedures and functions were written, compiled, and executed successfully.

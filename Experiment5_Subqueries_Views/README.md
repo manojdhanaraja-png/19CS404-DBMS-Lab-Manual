@@ -38,179 +38,268 @@ DROP VIEW view_name;
 
 **Question 1**
 --
-<img width="1068" height="370" alt="image" src="https://github.com/user-attachments/assets/ddffe3a5-7eec-4935-9bd8-b7dfdb154e0d" />
+--  Write a SQL query to List departments with names longer than the average length Departments Table (attributes: department_id, department_name)
+
+<img width="1147" height="180" alt="441121112-601b7491-6659-406c-b3ef-09a48970ea30" src="https://github.com/user-attachments/assets/e7892e6a-3323-4ebb-bf85-604273ae0850" />
+
 
 ```sql
-SELECT *
-FROM CUSTOMERS
-WHERE SALARY > 1500;
+-- SELECT department_id, department_name
+FROM Departments
+WHERE LENGTH(department_name) > (
+    SELECT AVG(LENGTH(department_name)) FROM Departments
+);
 ```
 
 **Output:**
 
-<img width="1161" height="529" alt="image" src="https://github.com/user-attachments/assets/fccb709b-8fd7-4acc-a70e-f5e2e398a7cb" />
+<img width="712" height="412" alt="441121438-b4b34710-2470-484a-864c-20f49ada5ac0" src="https://github.com/user-attachments/assets/f6f55c10-48d8-471d-a0f0-f1a4775ec98e" />
+
 
 **Question 2**
 ---
-<img width="1233" height="382" alt="image" src="https://github.com/user-attachments/assets/1e497635-92f2-4f5d-9113-e7c8ab286ef4" />
+-- Write a SQL query to Retrieve the medications with dosages equal to the lowest dosage Table Name: Medications (attributes: medication_id, medication_name, dosage)
+
+<img width="905" height="226" alt="441122047-b3ce9e5e-6c7e-4df8-b7bb-ff451f1b5528" src="https://github.com/user-attachments/assets/238e5aca-3a4e-4ac5-ac7b-41032163dd19" />
+
 
 ```sql
-SELECT *
-FROM CUSTOMERS
-WHERE SALARY = 1500;
+-- SELECT medication_id, medication_name, dosage
+FROM Medications
+WHERE dosage = (
+    SELECT MIN(dosage)
+    FROM Medications
+);
 ```
 
 **Output:**
 
-<img width="1221" height="297" alt="image" src="https://github.com/user-attachments/assets/319e4e0a-4dd4-4750-8e52-12bd8de7ec65" />
+<img width="955" height="387" alt="441122458-48b57122-79e7-4546-a7a3-a47045cc3faa" src="https://github.com/user-attachments/assets/5ea03d00-553b-4925-8646-28af1df2ca75" />
+
 
 **Question 3**
 ---
-<img width="1268" height="320" alt="image" src="https://github.com/user-attachments/assets/60d8b17f-7b89-4119-846c-7c719971b68d" />
+--Write a SQL query to Identify customers whose city is different from the city of the customer with the highest ID SAMPLE TABLE: customer
+
+name             type
+---------------  ---------------
+id               INTEGER
+name             TEXT
+city             TEXT
+email            TEXT
+phone            INTEGER
 
 ```sql
-SELECT ord_no, purch_amt, ord_date, customer_id, salesman_id
-FROM orders
-WHERE purch_amt > (
-    SELECT AVG(purch_amt)
-    FROM orders
-    WHERE ord_date = '2012-10-10'
+--SELECT *
+FROM customer
+WHERE city <> (
+    SELECT city
+    FROM customer
+    WHERE id = (SELECT MAX(id) FROM customer)
 );
 ```
 
 **Output:**
 
-<img width="1127" height="393" alt="image" src="https://github.com/user-attachments/assets/dc772528-0a50-43dd-8136-31e188223be2" />
+<img width="1243" height="537" alt="441123193-7ac19955-caf9-4ec4-9728-cf306c683979" src="https://github.com/user-attachments/assets/333a2edc-43db-49ea-807a-5e4d8f789b31" />
+
 
 **Question 4**
 ---
-<img width="1314" height="447" alt="image" src="https://github.com/user-attachments/assets/7920a2ad-8d7c-4fd0-976f-d43a6fbaa934" />
+-- Write a SQL query to Retrieve the names of customers who have a phone number that is not shared with any other customer. SAMPLE TABLE: customer
+
+name             type
+---------------  ---------------
+id               INTEGER
+name             TEXT
+city             TEXT
+email            TEXT
+phone            INTEGER
 
 ```sql
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s
-ON o.salesman_id = s.salesman_id
-WHERE s.city = 'New York';
-
+-- SELECT name
+FROM customer
+WHERE phone IN (
+    SELECT phone
+    FROM customer
+    GROUP BY phone
+    HAVING COUNT(*) = 1
+);
 ```
 
 **Output:**
 
-<img width="1133" height="391" alt="image" src="https://github.com/user-attachments/assets/fa6f01ee-5856-4075-ba14-41003c73168d" />
+<img width="812" height="490" alt="441123964-d3aaaee9-420a-4a99-9392-e2c54b498511" src="https://github.com/user-attachments/assets/f14657a0-6c06-4aaa-b66e-81d338433cea" />
+
 
 **Question 5**
 ---
-<img width="1174" height="448" alt="image" src="https://github.com/user-attachments/assets/49e908f3-843d-4626-bd0f-a6a71d6551ed" />
+--Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
+
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
+
+<img width="727" height="292" alt="441124269-c0d045aa-4f81-4584-ab4a-cd9ad6ec0363" src="https://github.com/user-attachments/assets/5950790f-dabd-482e-8c3f-922f854c5316" />
+
 
 ```sql
-SELECT customer_id, cust_name, city, grade, salesman_id
-FROM customer
-WHERE customer_id = (
-    (SELECT salesman_id FROM salesman WHERE name = 'Mc Lyon') - 2001
+-- SELECT *
+FROM Grades g
+WHERE grade = (
+    SELECT MAX(grade)
+    FROM Grades
+    WHERE subject = g.subject
 );
 ```
 
 **Output:**
 
-<img width="1167" height="262" alt="image" src="https://github.com/user-attachments/assets/b8dc617a-5044-4702-89f0-899bec1c1e2f" />
+<img width="1248" height="442" alt="441124619-1622ea28-49bc-4fa5-9237-a65aab635a0e" src="https://github.com/user-attachments/assets/3e7284ba-53d6-4f82-bd96-b2aad2ef924e" />
+
 
 **Question 6**
 ---
-<img width="1270" height="456" alt="image" src="https://github.com/user-attachments/assets/2c7f2639-4d25-4451-a97a-fd0fdacf5497" />
+--  Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi
+
+Sample table: CUSTOMERS
+
+
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+
+1          Ramesh     32              Ahmedabad     2000
+2          Khilan        25              Delhi                 1500
+3          Kaushik      23              Kota                  2000
+4          Chaitali       25             Mumbai            6500
+5          Hardik        27              Bhopal              8500
+6          Komal         22              Hyderabad       4500
+
+7           Muffy          24              Indore            10000
+
+
 
 ```sql
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.salesman_id
-FROM orders o
-JOIN salesman s
-ON o.salesman_id = s.salesman_id
-WHERE s.commission = (
-    SELECT MAX(commission)
-    FROM salesman
-);
+-- SELECT *
+FROM CUSTOMERS
+WHERE ADDRESS = 'Delhi';
 ```
 
 **Output:**
 
-<img width="923" height="413" alt="image" src="https://github.com/user-attachments/assets/187e48e4-1e0d-4a25-b405-4ef05908b152" />
+<img width="1242" height="370" alt="441125293-400b166d-7512-49dc-9eb6-aca2ca7714b8" src="https://github.com/user-attachments/assets/70c9ebee-bcbe-458d-9b3e-71fe7503a659" />
+
 
 **Question 7**
 ---
-<img width="1018" height="308" alt="image" src="https://github.com/user-attachments/assets/7f3d34a0-aca9-4e74-89ab-489bfaba18e0" />
+--  Write a SQL query to Retrieve the names and cities of customers who have the same city as customers with IDs 3 and 7
+
+SAMPLE TABLE: customer
+
+
+name             type
+---------------  ---------------
+id               INTEGER
+name             TEXT
+city             TEXT
+email            TEXT
+phone            INTEGER
 
 ```sql
-SELECT id, name, age, city, income
-FROM Employee
-WHERE age < (
-    SELECT AVG(age)
-    FROM Employee
-    WHERE income > 1000000
-);
-```
-
-**Output:**
-
-<img width="1325" height="381" alt="image" src="https://github.com/user-attachments/assets/b3a920ae-2729-4f82-bd86-57f323235776" />
-
-**Question 8**
----
-<img width="1149" height="488" alt="image" src="https://github.com/user-attachments/assets/68d4befa-2ffb-4ca8-8143-1a2c96565210" />
-
-```sql
-SELECT name, city
+-- SELECT name, city
 FROM customer
 WHERE city IN (
     SELECT city
     FROM customer
-    WHERE id IN (3,7)
+    WHERE id IN (3, 7)
 );
 ```
 
 **Output:**
 
-<img width="540" height="435" alt="image" src="https://github.com/user-attachments/assets/40973405-ab12-4231-81e9-be4ffc8b7460" />
+<img width="872" height="448" alt="441125745-b60183fb-f979-4821-931b-b2f8b297ad78" src="https://github.com/user-attachments/assets/0c08450d-3ba8-4d1c-a4cd-1486273230dc" />
+
+
+**Question 8**
+---
+-- Write a SQL query that retrieves the names of students and their corresponding grades, where the grade is equal to the maximum grade achieved in each subject. Sample table: GRADES
+
+<img width="747" height="281" alt="441126732-bf246299-c6d3-4770-854d-d9c0fdf37cbd" src="https://github.com/user-attachments/assets/a2101ee6-757a-485d-9999-9f393191e4de" />
+
+
+```sql
+-- select student_name   ,  grade
+from GRADES g
+where grade =
+(
+     select max(grade)
+     from GRADES
+     where subject = g.subject
+);
+```
+
+**Output:**
+
+<img width="823" height="417" alt="441127074-6738e361-a609-4902-a782-c6e06040f2ac" src="https://github.com/user-attachments/assets/392a4695-aa52-448b-8e59-ba0dd25b9ac3" />
+
 
 **Question 9**
 ---
-<img width="1297" height="455" alt="image" src="https://github.com/user-attachments/assets/57340e2e-7eea-4694-a717-b754e5b893a1" />
+-- Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is LESS than $2500.
+
+Sample table: CUSTOMERS
+
+
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+
+1          Ramesh     32              Ahmedabad     2000
+2          Khilan        25              Delhi                 1500
+3          Kaushik      23              Kota                  2000
+4          Chaitali       25             Mumbai            6500
+5          Hardik        27              Bhopal              8500
+6          Komal         22              Hyderabad       4500
+
+7           Muffy          24              Indore            10000
 
 ```sql
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s
-ON o.salesman_id = s.salesman_id
-WHERE s.name = 'Paul Adam';
+-- select *
+from CUSTOMERS
+where SALARY < 2500;
 ```
 
 **Output:**
 
-<img width="1198" height="343" alt="image" src="https://github.com/user-attachments/assets/cbf6d069-2e71-4310-95f2-fc6b16431fee" />
+<img width="1237" height="447" alt="441127627-d7c3e604-6c72-4a2c-a51c-f34c15b61bc7" src="https://github.com/user-attachments/assets/df1528b1-ca17-481c-aacc-27aeb1f553d0" />
+
 
 **Question 10**
 ---
-<img width="1237" height="552" alt="image" src="https://github.com/user-attachments/assets/5023b46a-0b89-43d6-bfe6-c6dee7f5266f" />
+--From the following tables write a SQL query to find the order values greater than the average order value of 10th October 2012. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+
+Note: date should be yyyy-mm-dd format ORDERS TABLE
+
+
+name            type
+----------     ----------
+ord_no          int
+purch_amt    real
+ord_date       text
+customer_id  int
+salesman_id  int
 
 ```sql
-SELECT
-    o.ord_no,
-    o.purch_amt,
-    o.ord_date,
-    o.customer_id,
-    o.salesman_id
-FROM
-    ORDERS o
-INNER JOIN
-    SALESMAN s ON o.salesman_id = s.salesman_id
-WHERE
-    s.city='New York';
+-- select * 
+from ORDERS
+where purch_amt >
+(
+     select purch_amt
+     from ORDERS
+     where ord_date = '2012-10-10'
+);
 ```
 
 **Output:**
 
-<img width="1240" height="444" alt="image" src="https://github.com/user-attachments/assets/7d4bbd10-e0a4-4c2f-9031-2a1cb80d8139" />
-
-## Grade
-<img width="1029" height="75" alt="image" src="https://github.com/user-attachments/assets/3d4896bc-2f99-42e7-af45-8d6f83e90dc5" />
+<img width="1246" height="447" alt="441128714-4e78fefc-67a9-4d14-84b9-e972e14fd3eb" src="https://github.com/user-attachments/assets/22c9b5a9-036d-462e-b1b0-83b913eb488e" />
 
 
 

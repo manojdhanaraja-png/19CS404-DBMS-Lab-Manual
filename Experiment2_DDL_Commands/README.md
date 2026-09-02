@@ -104,165 +104,148 @@ CREATE TABLE Table_Name (
 ```
 
 **Question 1**
---
-<img width="1202" height="240" alt="image" src="https://github.com/user-attachments/assets/ba357bff-84e3-4762-9489-8a31464e5470" />
+-- Insert a book with ISBN 978-1234567890, Title Data Science Essentials, Author Jane Doe, Publisher TechBooks, and Year 2024 into the Books table.
+
+
 
 ```sql
-INSERT INTO Customers (CustomerID, Name, Address, City, ZipCode)
-VALUES(301, 'Michael Jordan', '123 Maple St', 'Chicago', 60616);
+INSERT INTO Books VALUES ('978-1234567890', 'Data Science Essentials', 'Jane Doe', 'TechBooks', 2024);
 ```
 
 **Output:**
 
-<img width="1201" height="232" alt="image" src="https://github.com/user-attachments/assets/eba22ecd-0fc0-4d96-89ec-fda3a6084fde" />
+<img width="1233" height="201" alt="636807318-84d23e1a-cd5c-48f8-9db6-dd5374d7ad73" src="https://github.com/user-attachments/assets/d6820d75-6154-4d3b-8acb-794d0200d8f0" />
+
 
 **Question 2**
 ---
-<img width="933" height="259" alt="image" src="https://github.com/user-attachments/assets/1f99ac8c-46e5-4d7f-a14b-75b204704fab" />
+--  Create a table named Products with the following constraints:
+
+ProductID should be the primary key. ProductName should be NOT NULL. Price is of real datatype and should be greater than 0. Stock is of integer datatype and should be greater than or equal to 0.
 
 ```sql
-ALTER TABLE customer 
-RENAME city to location;
-
+-- CREATE TABLE Products ( ProductID INTEGER PRIMARY KEY, ProductName TEXT NOT NULL, Price REAL CHECK (Price > 0), Stock INTEGER CHECK (Stock >= 0));
 ```
 
 **Output:**
 
-<img width="1179" height="330" alt="image" src="https://github.com/user-attachments/assets/ba9efb0e-42cd-4611-b232-fcc7aabb020f" />
+<img width="1077" height="223" alt="636807245-6a21eccc-9cdc-4542-849c-6479e4275d22" src="https://github.com/user-attachments/assets/7827dd6e-e429-444c-a5be-436bcc9f8b80" />
+
 
 **Question 3**
 ---
-<img width="1207" height="66" alt="image" src="https://github.com/user-attachments/assets/9cc2d73e-6bc5-491b-bff8-ea6ca14ac682" />
+--  Insert all books from Out_of_print_books into Books
+
+Table attributes are ISBN, Title, Author, Publisher, YearPublished
 
 ```sql
-ALTER TABLE Companies RENAME name to first_name;
-ALTER TABLE Companies ADD column mobilenumber number;
-alter table Companies add column DOB Date;
-alter table Companies add column State varchar(30);
+--INSERT INTO Books (ISBN, Title, Author, Publisher, YearPublished) SELECT ISBN, Title, Author, Publisher, YearPublished FROM Out_of_print_books;
 ```
 
 **Output:**
+<img width="1330" height="235" alt="636807128-7eb48b03-82aa-4b0f-af73-41cbf7f184ad" src="https://github.com/user-attachments/assets/88b47686-0398-4518-8d01-4ea8d64727aa" />
 
-<img width="1220" height="422" alt="image" src="https://github.com/user-attachments/assets/bdb3f246-1a66-4a43-968b-4aa3b3bb4ebf" />
 
 **Question 4**
 ---
-<img width="563" height="168" alt="image" src="https://github.com/user-attachments/assets/6c091a3a-955c-43f4-a177-9424aba292c8" />
+-- In the Cusomers table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+
+CustomerID Name Address City ZipCode
 
 ```sql
-CREATE TABLE Reviews(
-    ReviewID INTEGER,
-    ProductID INTEGER,
-    Rating REAL,
-    ReviewText TEXT
-);
+-- INSERT INTO Customers VALUES (306, 'Diana Prince', 'Themyscira', NULL, NULL), (307, 'Bruce Wayne', 'Wayne Mano', 'Gotham', 10007), (308, 'Peter Parker', 'Queens', NULL, 11375);
 ```
 
 **Output:**
 
-<img width="1192" height="399" alt="image" src="https://github.com/user-attachments/assets/775c351f-f696-47be-9f1d-a7fab1bcb368" />
+<img width="1290" height="292" alt="636807045-6d21e369-89af-44a9-b35c-22e4eacb1e4b" src="https://github.com/user-attachments/assets/35cbb4b2-7b4b-4a13-bf10-338af656db8e" />
+
 
 **Question 5**
 ---
-<img width="923" height="248" alt="image" src="https://github.com/user-attachments/assets/7752760c-a198-4433-a25e-d5b873c80d35" />
+--  Create a table named Orders with the following constraints: OrderID as INTEGER should be the primary key. OrderDate as DATE should be not NULL. CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
 
 ```sql
-CREATE TABLE item (
-    item_id TEXT primary key,
-    item_desc TEXT NOT NULL,
-    rate INTEGER NOT NULL,
-    icom_id TEXT CHECK (length(icom_id)=4),
-    FOREIGN KEY (icom_id) REFERENCES company(com_id)  
-    on update set null  on delete  set null);
+-- CREATE TABLE Orders (OrderID INT PRIMARY KEY, OrderDate DATE NOT NULL, CustomerID INT, FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID));
 ```
 
 **Output:**
 
-<img width="1190" height="350" alt="image" src="https://github.com/user-attachments/assets/f29b1303-39bf-44e2-aa21-bea9105be39a" />
+<img width="1325" height="237" alt="636806965-aaf6ba21-d9fc-4032-a758-418f2da1b80a" src="https://github.com/user-attachments/assets/a66c8be1-07fc-456a-b188-f42b0072098e" />
+
 
 **Question 6**
 ---
-<img width="987" height="201" alt="image" src="https://github.com/user-attachments/assets/d81fa7a6-e4f8-4820-9471-9aa9d1f5590e" />
+--  Create a table named Employees with the following constraints:
 
+EmployeeID should be the primary key. FirstName and LastName should be NOT NULL. Email should be unique. Salary should be greater than 0. DepartmentID should be a foreign key referencing the Departments table.
 ```sql
-CREATE TABLE contacts(
-    contact_id INTEGER primary key,
-    first_name TEXT not NULL,
-    last_name TEXT not NULL,
-    email TEXT,
-    phone TEXT not NULL CHECK (length(phone)>=10)
-    );
+-- CREATE TABLE Employees ( EmployeeID INT PRIMARY KEY, FirstName TEXT NOT NULL, LastName TEXT NOT NULL, Email TEXT UNIQUE, Salary REAL CHECK (Salary > 0), DepartmentID INT, FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID));
 ```
 
 **Output:**
 
-<img width="1199" height="310" alt="image" src="https://github.com/user-attachments/assets/b374efb9-4db2-428c-b9d7-4cdc69682ff4" />
+<img width="1335" height="330" alt="636806853-4b45ebda-41c1-429e-9127-70e4c4123245" src="https://github.com/user-attachments/assets/78b95c14-e089-4e90-a52f-c2400ee7d0f7" />
+
 
 **Question 7**
 ---
-<img width="468" height="101" alt="image" src="https://github.com/user-attachments/assets/24e3d9b0-8f55-42b2-89e8-c088fc6d1146" />
+--  Write a SQL query to add birth_date attribute as timestamp (datatype) in the table customer
+
+Sample table: customer
+
+customer_id | cust_name | city | grade | salesman_id -------------+----------------+------------+-------+------------- 3002 | Nick Rimando | New York | 100 | 5001 3007 | Brad Davis | New York | 200 | 5001 3005 | Graham Zusi | California | 200 | 5002
 
 ```sql
-INSERT INTO Customers(CustomerID, Name, Address, Email)
-SELECT CustomerID, Name, Address, Email
-FROM Old_customers
+-- ALTER TABLE customer ADD birth_date timestamp;
 ```
 
 **Output:**
 
-<img width="1203" height="286" alt="image" src="https://github.com/user-attachments/assets/7eaf857f-5af4-4ce8-95e2-4f1b77b0d8c4" />
+<img width="1372" height="215" alt="636806774-21a34c3c-a6cb-488b-a462-964642f35b67" src="https://github.com/user-attachments/assets/32b76c58-21db-437c-8fa5-4e9ccd5f1d33" />
 
 **Question 8**
 ---
-<img width="793" height="165" alt="image" src="https://github.com/user-attachments/assets/39793172-0d78-488d-9a5e-923577296074" />
+-- Create a table named Tasks with the following columns:
+
+TaskID as INTEGER TaskName as TEXT DueDate as DATE
 
 ```sql
-CREATE TABLE Shipments(
-    ShipmentID INTEGER primary key,
-    ShipmentDate DATE,
-    SupplierID INTEGER,
-    OrderID INTEGER,
-    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
-    );
+-- CREATE TABLE Tasks ( TaskID INTEGER, TaskName TEXT, DueDate DATE );
 ```
 
 **Output:**
 
-<img width="1204" height="227" alt="image" src="https://github.com/user-attachments/assets/213cb587-a930-487a-9b7a-ac9c98a6712b" />
+<img width="1317" height="297" alt="636806671-35ae4868-7c13-4d5d-9fbc-10d99577d734" src="https://github.com/user-attachments/assets/8aef45e4-977e-42ec-8511-74c05c7dd280" />
+
 
 **Question 9**
 ---
-<img width="470" height="146" alt="image" src="https://github.com/user-attachments/assets/b93af86a-1114-4d39-b4fb-eb312eb81ca6" />
+--Write an SQL query to add two new columns, department_id and manager_id, to the table employee with datatype of INTEGER. The manager_id column should have a default value of NULL.
 
 ```sql
-insert into products(Name,Category,Price,Stock)
-values("Smartphone","Electronics",800,150),("Headphones" ,"Accessories",200,300)
+-- ALTER TABLE employee ADD department_id INTEGER;
+ALTER TABLE employee ADD manager_id INTEGER DEFAULT NULL;
 ```
 
 **Output:**
 
-  <img width="1187" height="358" alt="image" src="https://github.com/user-attachments/assets/c1ef4dff-41a0-4f62-afb3-b2d58bbf102c" />
+<img width="1187" height="265" alt="636806534-7ff191a7-ef2e-4484-8658-75315103b584" src="https://github.com/user-attachments/assets/712ae461-0328-47fc-a5b1-dbc9d71b6ad3" />
+
 
 **Question 10**
 ---
-<img width="1058" height="177" alt="image" src="https://github.com/user-attachments/assets/cee7f4d2-9357-41cc-9b09-4bd52dcf93cc" />
+-- Create a table named Department with the following constraints: DepartmentID as INTEGER should be the primary key. DepartmentName as TEXT should be unique and not NULL. Location as TEXT.
 
 ```sql
-create table Attendance(
-AttendanceID int primary key,
-EmployeeID int ,
-AttendanceDate date,
-Status text check(status in('Present', 'Absent', 'Leave')),
-foreign key (EmployeeID) references Employees(EmployeeID));
+-- CREATE TABLE Department ( DepartmentID INTEGER PRIMARY KEY, DepartmentName TEXT NOT NULL UNIQUE, Location TEXT );
 ```
 
 **Output:**
 
-<img width="1188" height="279" alt="image" src="https://github.com/user-attachments/assets/5c84d6cc-291b-48d8-bcf8-923832af193d" />
+<img width="1373" height="185" alt="636806429-c4640a4e-f2ff-40f2-aa41-6517d84d0a8c" src="https://github.com/user-attachments/assets/bed33c8c-fdf8-4817-a460-8a83412427f3" />
 
-## Grade
-<img width="1373" height="75" alt="image" src="https://github.com/user-attachments/assets/0cdf878b-7e74-4fc7-a2ec-602bc1a185b7" />
+
 
 ## RESULT
 Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.

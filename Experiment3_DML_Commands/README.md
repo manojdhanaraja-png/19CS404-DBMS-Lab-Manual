@@ -47,10 +47,51 @@ SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
 --
-<img width="1032" height="287" alt="image" src="https://github.com/user-attachments/assets/8df36e91-1bc4-4c7c-88f8-600e5a094784" />
+--Decrease the reorder level by 30 percent where the product name contains 'cream' and quantity in stock is higher than reorder level in the products table.
+
+PRODUCTS TABLE
+
+name type
+
+product_id INT product_name VARCHAR(100) category VARCHAR(50) cost_price DECIMAL(10,2) sell_price DECIMAL(10,2) reorder_lvl INT quantity INT supplier_id INT 
 
 ```sql
-UPDATE sales
+-- UPDATE products
+SET reorder_lvl = reorder_lvl * 0.70
+WHERE product_name LIKE '%cream%'
+  AND quantity > reorder_lvl;
+```
+
+**Output:**
+
+<img width="1357" height="295" alt="636810802-1f385724-1337-4081-87c0-41e214da72c7" src="https://github.com/user-attachments/assets/2d5c91e1-72d4-45fa-9781-90caddc474d7" />
+
+
+**Question 2**
+---
+--Write a SQL statement to Update the grade of all customers in Chennai city as 5.
+
+Customer table (customer_id,cust_name,city,grade,salesman_id)
+
+```sql
+-- UPDATE Customer
+SET grade = 5
+WHERE city = 'Chennai';
+```
+
+**Output:**
+
+<img width="1220" height="365" alt="636810697-ab42a8e4-7101-4c6d-8fb5-36b7c17aa2a4" src="https://github.com/user-attachments/assets/8d9cdcda-a6a3-474c-8e7f-5353b4db060b" />
+
+
+**Question 3**
+---
+-- Write a SQL statement to Increase the selling price per unit by 5% for product ID 15 who's sale is on '2023-01-31'.
+
+sales(sale_id,sale_date,product_id,quantity,sell_price,total_sell_price)
+
+```sql
+-- UPDATE sales
 SET sell_price = sell_price * 1.05
 WHERE product_id = 15
   AND sale_date = '2023-01-31';
@@ -58,140 +99,137 @@ WHERE product_id = 15
 
 **Output:**
 
-<img width="1193" height="453" alt="image" src="https://github.com/user-attachments/assets/ea78ca60-edb1-437d-b74f-7c7fb4ca4a19" />
+<img width="1335" height="358" alt="636810654-2887cd64-c7f7-416e-b739-3ee3a0f836e1" src="https://github.com/user-attachments/assets/505ec780-ad47-459a-9a45-c0c130941f05" />
 
-**Question 2**
----
-<img width="1050" height="544" alt="image" src="https://github.com/user-attachments/assets/bd91a755-a383-47c2-89ee-d0f71f4cdb7b" />
-
-```sql
-UPDATE products
-SET sell_price = ROUND(sell_price * 1.10, 2)
-WHERE supplier_id = 6; 
-
-```
-
-**Output:**
-
-<img width="1217" height="525" alt="image" src="https://github.com/user-attachments/assets/5d5bb903-9bed-4d4f-8e3b-aff638700acb" />
-
-**Question 3**
----
-<img width="1250" height="940" alt="image" src="https://github.com/user-attachments/assets/5ed3e33f-7165-4f5d-ae20-e48bfe40b756" />
-
-```sql
-UPDATE employees
-SET salary = ROUND(CASE
-WHEN department_id = 40 THEN salary * 1.25
-WHEN department_id = 90 THEN salary * 1.15
-WHEN department_id = 110 THEN salary * 1.10
-ELSE salary
-END, 0);
-```
-
-**Output:**
-
-<img width="1190" height="457" alt="image" src="https://github.com/user-attachments/assets/d2e929d1-cc11-423c-b465-8d9cb2612351" />
 
 **Question 4**
 ---
-<img width="1048" height="333" alt="image" src="https://github.com/user-attachments/assets/85715249-2a0c-4985-ab29-74270049143e" />
+--Update the 'Selling_Price' to add 10% extra margin for all products supplied by the supplier with id 6.
+
+PRODUCTS TABLE
+
+name type
+
+product_id INT product_name VARCHAR(100) category VARCHAR(50) cost_price DECIMAL(10,2) sell_price DECIMAL(10,2) reorder_lvl INT quantity INT supplier_id INT
 
 ```sql
-update suppliers 
-set supplier_name ='A1 Suppliers'
-where supplier_id=8;
+--UPDATE Products
+SET sell_price = ROUND(sell_price + (sell_price * 10 / 100), 1)
+WHERE supplier_id = 6;
 ```
 
 **Output:**
 
-<img width="1206" height="403" alt="image" src="https://github.com/user-attachments/assets/21101c5d-c398-43f2-99f4-62b48dd6b225" />
+<img width="1298" height="317" alt="636810587-2f3db16e-a25b-4985-9420-cafaf583afa9" src="https://github.com/user-attachments/assets/f39666ec-923e-494b-9580-c6a795a07a90" />
+
 
 **Question 5**
 ---
-<img width="1169" height="573" alt="image" src="https://github.com/user-attachments/assets/ece32ff1-3c1a-4ecc-93fd-4e84fe3356a6" />
+--Write a SQL statement to Change the supplier name to 'A1 Suppliers' where the supplier ID is 8 in the suppliers table.
+
+Table info
+
+suppliers(supplier_id,supplier_name,contact_person,phone_number,email,address)
 
 ```sql
-UPDATE products
-SET reorder_lvl = reorder_lvl * 0.70
-WHERE cost_price > 50
-  AND quantity < 100;
+-- UPDATE suppliers
+SET supplier_name = 'A1 Suppliers'
+WHERE supplier_id = 8;
 ```
 
 **Output:**
 
-<img width="1185" height="443" alt="image" src="https://github.com/user-attachments/assets/3ce7f997-fe12-4cd8-8e77-73e1a66c0a1b" />
+<img width="1557" height="332" alt="636810533-eeaf9c94-cbca-4249-a7f1-d1b07f93dbba" src="https://github.com/user-attachments/assets/81acda63-2c36-40e4-9960-7628b7b4601a" />
+
 
 **Question 6**
 ---
-<img width="822" height="479" alt="image" src="https://github.com/user-attachments/assets/d50d6f79-1f27-4f4e-b349-4825b7bb88f6" />
+-- Write a SQL query to Delete a Specific Surgery whose ID is 3 or surgeon ID is 4.
+
+Sample table: Surgeries
 
 ```sql
-DELETE FROM doctors
-WHERE doctor_id BETWEEN 2 AND 4;
+-- DELETE FROM surgeries
+WHERE surgery_id = 3
+   OR surgeon_id = 4;
 ```
 
 **Output:**
 
-<img width="1198" height="792" alt="image" src="https://github.com/user-attachments/assets/b3968838-baa4-48de-9376-7efffb8b3707" />
+<img width="1055" height="661" alt="636810476-89db04f7-0a7c-4a5a-92f5-29cf43f005b0" src="https://github.com/user-attachments/assets/d3ab54cc-6885-4b10-ac32-a814d9564e59" />
+
 
 **Question 7**
 ---
-<img width="1215" height="476" alt="image" src="https://github.com/user-attachments/assets/ba3acfac-c254-4346-82ce-7517c82cd66c" />
+-- Write a SQL query to Delete all Doctors whose Specialization is either 'Pediatrics' or 'Cardiology' and Last Name is Brown.
+
+Sample table: Doctors
+
+attributes : doctor_id, first_name, last_name, specialization
 
 ```sql
-delete from customer
-where  CUST_COUNTRY not in ( 'India', 'USA');
+-- DELETE FROM doctors
+WHERE last_name = 'Brown'
+  AND specialization IN ('Pediatrics', 'Cardiology');
 ```
 
 **Output:**
 
-<img width="1209" height="555" alt="image" src="https://github.com/user-attachments/assets/3830c607-26cd-4be1-b7da-876e1f69df31" />
+<img width="1012" height="697" alt="636810430-0a16e52b-6850-4142-af93-ce75715bdca9" src="https://github.com/user-attachments/assets/7d3ca76b-329e-4a80-84b3-0e0dd3057542" />
+
 
 **Question 8**
 ---
-<img width="1223" height="279" alt="image" src="https://github.com/user-attachments/assets/8dcb7e24-8e3c-4b8c-bf7c-16d4eb8e14c4" />
+--Write a SQL query to Delete customers from 'customer' table where 'AGENT_CODE' is either 'A003' or 'A008'.
+
+Sample table: Customer
+
++-----------+-------------+-------------+--------------+--------------+-------+-------------+-------------+-------------+---------------+--------------+------------+
+|CUST_CODE | CUST_NAME | CUST_CITY | WORKING_AREA | CUST_COUNTRY | GRADE | OPENING_AMT | RECEIVE_AMT | PAYMENT_AMT |OUTSTANDING_AMT| PHONE_NO | AGENT_CODE | +-----------+-------------+-------------+--------------+--------------+-------+-------------+-------------+-------------+---------------+--------------+------------+ | C00013 | Holmes | London | London | UK | 2 | 6000.00 | 5000.00 | 7000.00 | 4000.00 | BBBBBBB | A003 | | C00001 | Micheal | New York | New York | USA | 2 | 3000.00 | 5000.00 | 2000.00 | 6000.00 | CCCCCCC | A008 | | C00020 | Albert | New York | New York | USA | 3 | 500
 
 ```sql
-delete from customer 
-where OPENING_AMT between 4000 and 6000;
+-- DELETE FROM customer
+WHERE agent_code IN ('A003', 'A008');
 ```
 
 **Output:**
 
-<img width="1184" height="612" alt="image" src="https://github.com/user-attachments/assets/f1793811-8551-4cd3-bf11-f0748caac85c" />
+<img width="600" height="802" alt="636810374-c1831606-533d-4ed1-adbe-f080ceaeffab" src="https://github.com/user-attachments/assets/02a984b1-b667-4b8c-b0a3-58e1760199d8" />
+
 
 **Question 9**
 ---
-<img width="1212" height="306" alt="image" src="https://github.com/user-attachments/assets/4a61b39d-3c41-4ca7-8a14-d3ff16d80791" />
+-- Write a SQL query to Delete customers with following conditions
+
+'CUST_COUNTRY' is not in a list of specified countries ('UK', 'USA', 'Canada') 'GRADE' is greater than or equal to 3
 
 ```sql
-delete from customer
-where (grade>2 and payment_amt<(select avg(payment_amt)
-from customer))
-or outstanding_amt>8000;
+--DELETE FROM customer
+WHERE cust_country NOT IN ('UK', 'USA', 'Canada')
+  AND grade >= 3;
 ```
 
 **Output:**
 
-<img width="1183" height="659" alt="image" src="https://github.com/user-attachments/assets/76daa8f9-f73f-4d8f-8124-af3b40bce3c5" />
+<img width="1763" height="270" alt="636810300-2fc90506-d131-490c-832e-bfcbf21a3c25" src="https://github.com/user-attachments/assets/d3f3ff31-804c-4fdb-bfba-f9a09b070f57" />
+
 
 **Question 10**
 ---
-<img width="1207" height="301" alt="image" src="https://github.com/user-attachments/assets/85360bfc-eccb-4a75-8348-d0b1fad0dfa3" />
+--Write a SQL query to Delete All Doctors with a NULL Specialization
+
+Sample table: Doctors
+
+attributes : doctor_id, first_name, last_name, specialization
 
 ```sql
-delete from customer
-where GRADE >=2;
+--DELETE FROM doctors
+WHERE specialization IS NULL;
 ```
 
 **Output:**
 
-<img width="693" height="534" alt="image" src="https://github.com/user-attachments/assets/4bc3fa7c-8139-429a-b9cb-b883857a54b7" />
-
-## Grade
-<img width="1350" height="70" alt="image" src="https://github.com/user-attachments/assets/2cbe5762-511e-4f8c-bcde-226f1ab63609" />
-
+<img width="1073" height="737" alt="636810157-6a22c094-d016-4771-af71-004bd87f8df7" src="https://github.com/user-attachments/assets/1aff5004-ef25-4276-a698-085d6e61774a" />
 
 ## RESULT
 Thus, the SQL queries to implement DML commands have been executed successfully.
